@@ -1,5 +1,39 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import { createRouter, createWebHistory } from 'vue-router';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 
-createApp(App).mount('#app')
+import axios from 'axios';
+
+import App from './App.vue'
+import Project from './views/Project.vue';
+import ProjectCreationPage from './views/ProjectCreationPage.vue';
+import Home from  './views/Home.vue';
+
+const app = createApp(App);
+
+axios.defaults.baseURL = 'https://localhost:7046';
+
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes: [
+        { path: '/', component: Home },
+        { path: '/project/:id', component: Project },
+        { path: '/project/create', component: ProjectCreationPage }
+    ],
+});
+
+
+router.beforeEach((to, from, next) => {
+    console.log(`Переход с: ${from.path} на: ${to.path}`);
+    next();
+});
+
+router.afterEach((to, from) => {
+    console.log(`Переход завершен: ${from.path} на: ${to.path}`);
+});
+
+
+app.use(router);
+app.config.globalProperties.$http = axios;
+app.mount('#app')
