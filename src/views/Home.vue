@@ -1,15 +1,32 @@
 <template>
-    <div class="container">
-        <div>
-            <li v-for="phone in phones">
-                {{phone.Name}}
-            </li>
+    <div class="col-12 pt-3 pb-3">
+        <div class="m-1" align="end">
+            <router-link class="btn btn-primary" to="/project/create">Добавить проект</router-link>
         </div>
-        <button 
-            class="btn btn-primary"
-            @click="click"
-
-        >Click</button>
+        <div class="d-flex">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                v-for="p in projects" 
+                :key="p.Id"
+            >
+                <div class="m-1">
+                    <router-link class="text-decoration-none"
+                        :to="{ path: '/project/' + p.Id }"
+                    >
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ p.Name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ p.Description }}</h6>
+                                <p>amount of employees</p>
+                                <div class="d-flex justify-content-between">
+                                    <span>manager</span>
+                                    <span>{{ p.CreateDate.toLocaleString() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </router-link>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -19,18 +36,18 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            phones: []
+            projects: []
         }
     },
+    mounted() {
+        this.get_projects();
+    },
     methods: {
-        click() {
-            console.log(axios)
-            const apiUrl = 'https://localhost:7046/Phone/get';
-
-            axios.get(apiUrl)
+        get_projects() {
+            axios.get("/Project/get")
             .then(response => {
-                console.log(response);
-                this.phones = response.data;
+                this.projects = response.data.projects;
+                console.log(response.data.projects);
             })
             .catch(error => {
                 console.error('Ошибка при получении данных:', error);
