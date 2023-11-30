@@ -12,6 +12,7 @@
                     </li>
                 </ul>
             </div>
+            <router-link class="btn btn-light" to="/login">Login</router-link>
         </div>
     </nav>
 </template>

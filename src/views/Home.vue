@@ -3,7 +3,7 @@
         <div class="m-1" align="end">
             <router-link class="btn btn-primary" to="/project/create">Добавить проект</router-link>
         </div>
-        <div class="d-flex">
+        <div class="d-flex flex-wrap">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"
                 v-for="p in projects" 
                 :key="p.Id"
