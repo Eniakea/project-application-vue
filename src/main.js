@@ -8,6 +8,7 @@ import App from './App.vue'
 import Project from './views/Project.vue';
 import ProjectCreationPage from './views/ProjectCreationPage.vue';
 import Home from  './views/Home.vue';
+import Login from './views/Login.vue'
 
 const app = createApp(App);
 
@@ -19,7 +20,8 @@ const router = createRouter({
     routes: [
         { path: '/', component: Home },
         { path: '/project/:id', component: Project },
-        { path: '/project/create', component: ProjectCreationPage }
+        { path: '/project/create', component: ProjectCreationPage },
+        { path: '/login', component: Login }
     ],
 });
 
